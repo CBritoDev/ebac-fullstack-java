@@ -1,0 +1,77 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap');
+
+/* Aplicando as fontes no CSS */
+
+
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+}
+
+#historia{
+    color: #000;
+}
+
+#frase {
+    color: rgb(255, 255, 255);
+}
+
+
+h1 {
+    color: rgb(255, 255, 255);
+    padding-top: 25px;
+    font-weight: 900;
+    font-size: 63px;
+}
+
+h2{
+    color: #000000;
+    padding: 25px;
+}
+
+h6{
+    color: rgb(255, 255, 255);
+    padding: 15px;
+}
+
+
+#agendamento {
+    color: rgb(255, 255, 255);
+}
+
+
+#selecao legend {
+    font-size: medium;
+}
+
+
+#servicos h2{
+    color: #000000;
+}
+
+#depoimento {
+    color: #000;
+}
+
+#john {
+    color: #ffffff;
+    
+}
+
+#johnn {
+    color: #ffffff;
+}
+
+#cabecalho {
+    background-color: #000;
+}
+#img {
+    background-color: #000;
+}
+
+
