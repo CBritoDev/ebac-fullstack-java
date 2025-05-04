@@ -19,17 +19,6 @@ Modelar um sistema básico que armazena dados de pessoas físicas e jurídicas, 
 
 ---
 
-## 🧱 Estrutura do Projeto
-
-desafio_oop_pessoa/
-├── Main.java
-├── model/
-│ ├── Pessoa.java
-│ ├── PessoaFisica.java
-│ └── PessoaJuridica.java
-└── interfaces/
-└── Identificacao.java
-
 ## 🛠️ Funcionalidades
 
 - Cadastro de pessoas físicas e jurídicas
