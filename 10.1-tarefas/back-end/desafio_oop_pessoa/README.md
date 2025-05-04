@@ -2,7 +2,6 @@
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Status](https://img.shields.io/badge/status-concluído-brightgreen?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
 
 Projeto desenvolvido como parte do curso Full Stack Java da [EBAC](https://ebaconline.com.br/), com foco em aplicar os conceitos de **Orientação a Objetos** com Java.
 
