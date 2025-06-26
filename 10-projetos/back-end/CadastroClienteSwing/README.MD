@@ -10,7 +10,7 @@
 
 ## Preview
           
-![Preview da Interface de Cadastro](ebac-fullstack-java/tree/main/10-projetos/back-end/CadastroClienteSwing)
+![Preview da Interface de Cadastro](images/GIFInterface.gif)
 
 ## 🚀 **Descrição**  
 Sistema de gerenciamento de clientes com interface gráfica (Swing) que oferece:  
