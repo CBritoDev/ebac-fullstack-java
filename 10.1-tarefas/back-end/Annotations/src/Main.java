@@ -10,7 +10,7 @@ public class Main {
         print("Teste anotação");
     }
 
-    @Tabela("Nome da tabela")
+    @Tabela(nome = "Nome da tabela")
     private static void print(String x){
         System.out.println(x);
     }
