@@ -1,4 +1,4 @@
-package br.com.cbritodev.domain;
+package cadastro.domain;
 
 /**
  * @author carlos.brito

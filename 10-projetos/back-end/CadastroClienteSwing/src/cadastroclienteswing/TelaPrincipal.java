@@ -24,12 +24,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private Cliente cliente;
 
     /**
-     * Creates new form TelaPrincipal
+     * Cria a tela TelaPrincipal
+     * Delimita o tamanho da tabela a ser usada
+     * 
      */
     public TelaPrincipal() {
         initComponents();
         initCustomComponents();
-        
         
         
         tableClientes.getColumnModel().getColumn(0).setPreferredWidth(100); 
@@ -95,6 +96,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         lblCPF.setText("CPF:");
+
+        txtCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCPFActionPerformed(evt);
+            }
+        });
 
         tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,11 +214,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnLimparCampos)
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -325,6 +332,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    /**
+     * Salva os dados do cliente e adiciona da tabelta
+     * @param evt 
+     */
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
         String cpf = txtCPF.getText();
@@ -374,6 +385,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limparCampos();
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
+    /**
+     * retorna aos campos de texto, os dados do cliente
+     * @param evt 
+     */
     private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
        int linhaSelecionada = tableClientes.getSelectedRow();
        long cpf = (Long) tableClientes.getValueAt(linhaSelecionada, 1);
@@ -391,6 +406,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
        txtEstado.setText(cliente.getEndereco().getEstado());
     }//GEN-LAST:event_tableClientesMouseClicked
 
+    /**
+     * Exclui os dados do cliente selecionado
+     * @param evt Exclui os dados do cliente selecionado
+     */
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int linhaSelecionada = tableClientes.getSelectedRow();
         if(linhaSelecionada >= 0){
@@ -411,6 +430,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    /**
+     * Atualiza os dados do cliente selecionado
+     * @param evt  
+     */
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         int linhaSelecionada = tableClientes.getSelectedRow();
         long cpf = (Long) tableClientes.getValueAt(linhaSelecionada, 1);
@@ -462,6 +485,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCPFActionPerformed
 
     /**
      * @param args the command line arguments

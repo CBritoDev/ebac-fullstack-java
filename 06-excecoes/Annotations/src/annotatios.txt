@@ -1,0 +1,98 @@
+
+        Para que servem?
+
+        A principal função das anotações é fornecer informações úteis para:
+
+        O Compilador: Para ajudá-lo a detectar erros, suprimir avisos ou controlar o processo de compilação.
+
+        Ferramentas de Desenvolvimento e Build: Para gerar código, criar arquivos de configuração,
+        ou processar o código de outras formas.
+
+        O Tempo de Execução (Runtime): Para que a JVM (Java Virtual Machine) ou frameworks
+        (como Spring) possam ler essas informações e alterar o comportamento do programa de acordo.
+
+
+
+
+        @Override marcação apenas para marcar algo.
+        @Target(ElementType.ANNOTATION_TYPE) valor unico. Igual a anterior
+        @Target(value = ElementType.ANNOTATION_TYPE) segunda forma de valor unico
+        @Deprecated(forRemoval = true, since = "1.2") possui multiplos membros, valores
+
+
+        META-ANOTAÇÕES -> São utilizadas para criar novas anotações ou na marcação. Estão no pacote
+        java.lang.annotation
+
+        -> @Retention
+            Apenas no código fonte ou no binário de classes ou interfaces
+            Suporta 3 valores:
+                *SOURCE - indicar anotações marcadas não estarão no código binário
+                *CLASS - para gravar anotações no .class mas não estarão disnponíveis em tempo
+                de execução
+                *RUNTIME - estarão disponíveis em tempo de execução
+            Exemplo criação: @Retention(RetentionPolicy.RUNTIME)
+                              public @interface ExemploAnotacao{}
+
+        -> @Documented
+            Indica que os tipos de anotação serão incluidos no JavaDOC
+
+            -> @Target
+            É possivel estabelecer qual elemento de uma classe podem ser anotados com a anotação
+            (contrutor, variável local, parâmetro de metódo, método, etc)
+
+                Suporta seguintes valores:  TYPE - Classes ou interfaces
+                                            FIELD - Propriedades de classes
+                                            METHOD - Métodos
+                                            PARAMETER - Parâmetros
+                                            CONSTRUCTOR - Construtor
+                                            LOCAL_VARIABLE - variável local
+
+                Exemplo:
+                        @Documented
+                        @Retention(RetentionPolicy.RUNTIME)
+                        @Target(ElementType.TYPE)
+                        public @interface ExemploAnotacao{}
+
+
+        -> @Inherited
+            Por padrão, anotações declaradas em uma classe não são herdadas pelas subclasses.
+            O Inherited permite que essa herança aconteça caso necessário. Restringe-se apenas à classes.
+            Anotações em interfaces não são herdadas pelas classes que as implementam
+                            Exemplo:
+                                    @Documented
+                                    @Retention(RetentionPolicy.RUNTIME)
+                                    @Target(ElementType.TYPE)
+                                    @Inherited
+                                    public @interface ExemploAnotacao{}
+
+
+                                         -------------REGRAS--------------
+                 ->O nome do único membro de em um tipo de anotação com um único elemento deve ser VALUE
+                 ->Não pode ter parâmetro e nem levantar exceções
+                 ->O método não deve possuir corpo
+                 ->O tipo de retorno do método será do tipo do elemento
+                 -> Tipos de retornos: primitivos, String, Class, enum, array cujo tipo seja um dos precedentes.
+                         Exemplo:
+                                 @Documented
+                                 @Retention(RetentionPolicy.RUNTIME)
+                                 @Target(ElementType.TYPE)
+                                 @Inherited
+                                 public @interface ExemploAnotacao{
+
+                                    long value();
+
+                                    String[] nomes();
+
+                                    RetentionPolicy[] value2();
+
+                                    RetentionPolicy[] value3();
+
+                                    String nomeDefault() default "Rodrigo";
+
+                                 }
+                         Exemplo de uso:
+
+                                 @ExemploAnotacao(value = 1, nomes = {"Rodrigo"},
+                                               value2 = {RetentionPolicy.RUNTIME},
+                                               value3 = {RetentionPolicy.RUNTIME})
+                                 public class UsandoAnotacao{}

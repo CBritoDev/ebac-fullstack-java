@@ -1,9 +1,9 @@
-package br.com.cbritodev;
+package cadastro;
 
-import br.com.cbritodev.dao.ClienteMapDAO;
-import br.com.cbritodev.dao.IClienteDAO;
-import br.com.cbritodev.domain.Cliente;
-import br.com.cbritodev.domain.Endereco;
+import cadastro.dao.ClienteMapDAO;
+import cadastro.dao.IClienteDAO;
+import cadastro.domain.Cliente;
+import cadastro.domain.Endereco;
 
 import javax.swing.*;
 
@@ -141,7 +141,7 @@ public class App {
                                         "Alteração de dados", JOptionPane.INFORMATION_MESSAGE);
                                 if (isOpcaoValida(confirmacao)) {
                                     if (confirmacao.equals("1")) {
-                                        clienteCopiaSeguranca.setEndereco(endereco);
+                                        clienteCopiaSeguranca.setEndereco((endereco));
                                     } else if (confirmacao.equals("2")) {
                                         continue;
                                     }else{
