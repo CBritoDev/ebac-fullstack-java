@@ -1,10 +1,8 @@
-package cadastro.dao;
+package br.com.carlosbrito.reflections.cadastroReflaction.dao;
 
-import cadastro.dao.generic.GenericDAO;
-import cadastro.domain.Produto;
 
-import java.util.Collection;
-import java.util.List;
+import br.com.carlosbrito.reflections.cadastroReflaction.dao.generic.GenericDAO;
+import br.com.carlosbrito.reflections.cadastroReflaction.domain.Produto;
 
 /**
  * @author carlos.brito
@@ -20,7 +18,6 @@ public class ProdutoDAO extends GenericDAO<Produto> implements IProdutoDAO{
     public void atualizarDados(Produto entity, Produto entityCadastrado) {
         entityCadastrado.setNome(entity.getNome());
         entityCadastrado.setValor(entity.getValor());
-        entityCadastrado.setCodigo(entity.getCodigo());
     }
 
     @Override

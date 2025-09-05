@@ -1,4 +1,4 @@
-package cadastro.domain;
+package br.com.carlosbrito.reflections.cadastroReflaction.domain;
 
 /**
  * @author carlos.brito
@@ -6,5 +6,5 @@ package cadastro.domain;
  */
 //Toda entidade que pode ser persistida, precisa de um ID.
 public interface IPersistente {
-    public Long getCodigo();
+    //public Long getCodigo();
 }

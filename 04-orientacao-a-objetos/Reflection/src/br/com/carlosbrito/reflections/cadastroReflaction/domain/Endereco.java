@@ -1,4 +1,4 @@
-package cadastro.domain;
+package br.com.carlosbrito.reflections.cadastroReflaction.domain;
 
 /**
  * @author carlos.brito

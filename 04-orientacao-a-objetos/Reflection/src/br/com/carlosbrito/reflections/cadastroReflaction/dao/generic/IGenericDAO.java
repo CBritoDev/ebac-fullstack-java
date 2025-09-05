@@ -1,7 +1,7 @@
-package cadastro.dao.generic;
+package br.com.carlosbrito.reflections.cadastroReflaction.dao.generic;
 
-import cadastro.domain.IPersistente;
-import cadastro.domain.Produto;
+
+import br.com.carlosbrito.reflections.cadastroReflaction.domain.IPersistente;
 
 import java.util.Collection;
 

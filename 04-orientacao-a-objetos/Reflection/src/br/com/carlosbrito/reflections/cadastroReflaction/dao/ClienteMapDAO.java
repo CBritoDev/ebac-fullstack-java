@@ -1,11 +1,7 @@
-package cadastro.dao;
+package br.com.carlosbrito.reflections.cadastroReflaction.dao;
 
-import cadastro.dao.generic.GenericDAO;
-import cadastro.domain.Cliente;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import br.com.carlosbrito.reflections.cadastroReflaction.dao.generic.GenericDAO;
+import br.com.carlosbrito.reflections.cadastroReflaction.domain.Cliente;
 
 /**
  * @author carlos.brito

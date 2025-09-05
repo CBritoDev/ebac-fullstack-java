@@ -1,9 +1,10 @@
-package cadastro;
+package br.com.carlosbrito.reflections.cadastroReflaction;
 
-import cadastro.dao.ClienteMapDAO;
-import cadastro.dao.IClienteDAO;
-import cadastro.domain.Cliente;
-import cadastro.domain.Endereco;
+
+import br.com.carlosbrito.reflections.cadastroReflaction.dao.ClienteMapDAO;
+import br.com.carlosbrito.reflections.cadastroReflaction.dao.IClienteDAO;
+import br.com.carlosbrito.reflections.cadastroReflaction.domain.Cliente;
+import br.com.carlosbrito.reflections.cadastroReflaction.domain.Endereco;
 
 import javax.swing.*;
 

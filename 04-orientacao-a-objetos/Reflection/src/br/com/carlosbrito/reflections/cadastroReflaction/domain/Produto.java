@@ -1,4 +1,6 @@
-package cadastro.domain;
+package br.com.carlosbrito.reflections.cadastroReflaction.domain;
+
+import br.com.carlosbrito.reflections.cadastroReflaction.annotation.TipoChave;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -8,6 +10,8 @@ import java.util.Objects;
  * Criado em: 24/07/2025
  */
 public class Produto implements IPersistente{
+
+    @TipoChave(value = "getCodigo")
     private Long codigo;
     private String nome;
     private BigDecimal valor;
@@ -20,7 +24,7 @@ public class Produto implements IPersistente{
 
     public Long getCodigo() {
         return codigo;
-    }
+   }
 
     public void setCodigo(Long codigo) {
         this.codigo = codigo;

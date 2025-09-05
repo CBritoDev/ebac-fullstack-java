@@ -1,4 +1,6 @@
-package cadastro.domain;
+package br.com.carlosbrito.reflections.cadastroReflaction.domain;
+
+import br.com.carlosbrito.reflections.cadastroReflaction.annotation.TipoChave;
 
 import java.util.Objects;
 
@@ -9,6 +11,7 @@ import java.util.Objects;
 public class Cliente implements IPersistente {
 
     private String nome;
+    @TipoChave(value = "getCpf")
     private final long cpf;
     private long tel;
     private Endereco endereco;
@@ -72,8 +75,8 @@ public class Cliente implements IPersistente {
         );
     }
 
-    @Override
-    public Long getCodigo() {
-        return this.cpf;
-    }
+//    @Override
+//    public Long getCodigo() {
+//        return this.cpf;
+//    }
 }

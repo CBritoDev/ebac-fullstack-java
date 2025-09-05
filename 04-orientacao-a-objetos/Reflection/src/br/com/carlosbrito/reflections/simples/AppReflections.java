@@ -1,10 +1,9 @@
-package br.com.carlosbrito.reflections;
+package br.com.carlosbrito.reflections.simples;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Locale;
 
 /**
  * @author carlos.brito

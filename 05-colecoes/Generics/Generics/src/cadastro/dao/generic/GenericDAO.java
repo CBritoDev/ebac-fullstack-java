@@ -1,11 +1,9 @@
 package cadastro.dao.generic;
 
-import cadastro.domain.Cliente;
 import cadastro.domain.IPersistente;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,32 +22,32 @@ public abstract class GenericDAO<T extends IPersistente> implements IGenericDAO<
     public abstract Class<T> getClassType();
 
     public GenericDAO(){
+
         this.map = new HashMap<>();// Inicializa o mapa principal
         // Pega o mapa interno para o tipo de entidade específico desta subclasse (via getClassType())
         this.innerMapCache = this.map.get(getClassType());
         if(innerMapCache == null){// Se ainda não existe um mapa para esse tipo de entidade...
             innerMapCache = new HashMap<>();//...cria um novo mapa interno
-            this.map.put(getClassType(), innerMapCache);// ...e adiciona ao mapa principal
+            this.map.put(getClassType(), innerMapCache);}// ...e adiciona ao mapa principal
     }
-
-    /***
-     *
-     * @param entity
-     * @return a new entity
-     */
+        /***
+         *
+         * @param
+         * @return a new entity
+         */
     @Override
-    public Boolean cadastrar(T entity) {
-        // Pega o mapa interno específico para o tipo da entidade 'T' (ex: Cliente.class)
-        if(innerMapCache.containsKey(entity.getCodigo())) {
-            return false;
-        }
-        innerMapCache.put(entity.getCodigo(), entity);
-        return true;
+     public Boolean cadastrar(T entity) {
+            // Pega o mapa interno específico para o tipo da entidade 'T' (ex: Cliente.class)
+            if(innerMapCache.containsKey(entity.getCodigo())) {
+                return false;
+            }
+            innerMapCache.put(entity.getCodigo(), entity);
+            return true;
     }
 
     /***
      * Exclude T entity
-     * @param key
+     * @param
      */
     @Override
     public void excluir(Long key) {
@@ -58,7 +56,7 @@ public abstract class GenericDAO<T extends IPersistente> implements IGenericDAO<
 
     /***
      * Changes object fields
-     * @param entity
+     * @param
      */
     @Override
     public void alterar(T entity) {
@@ -73,7 +71,7 @@ public abstract class GenericDAO<T extends IPersistente> implements IGenericDAO<
 
     /***
      *
-     * @param key
+     * @param
      * @return entity
      */
     @Override

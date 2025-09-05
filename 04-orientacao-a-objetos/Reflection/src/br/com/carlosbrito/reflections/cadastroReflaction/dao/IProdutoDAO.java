@@ -1,10 +1,8 @@
-package cadastro.dao;
+package br.com.carlosbrito.reflections.cadastroReflaction.dao;
 
-import cadastro.dao.generic.IGenericDAO;
-import cadastro.domain.Cliente;
-import cadastro.domain.Produto;
 
-import java.util.Collection;
+import br.com.carlosbrito.reflections.cadastroReflaction.dao.generic.IGenericDAO;
+import br.com.carlosbrito.reflections.cadastroReflaction.domain.Produto;
 
 /**
  * @author carlos.brito

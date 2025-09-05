@@ -1,4 +1,4 @@
-package br.com.carlosbrito.reflections;
+package br.com.carlosbrito.reflections.simples;
 
 /**
  * @author carlos.brito
