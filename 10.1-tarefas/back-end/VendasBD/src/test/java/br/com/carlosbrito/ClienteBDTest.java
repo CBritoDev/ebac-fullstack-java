@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -37,6 +38,43 @@ public class ClienteBDTest {
         }
 
         Assert.assertTrue(count == 1);
+
+
+    }
+
+    @Test
+    public void deveBuscarClienteBDTest() throws Exception {
+        String sql =  "SELECT * FROM tb_cliente WHERE codigo = ?";
+        ResultSet rs;
+        Cliente retorno = new Cliente();
+        Cliente cliente =  new Cliente();
+        cliente.setNome("Teste 02");
+        cliente.setCodigo("0002");
+
+        clienteDao.cadastrar(cliente);
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)) {
+
+            stm.setString(1,cliente.getCodigo());
+            rs = stm.executeQuery();
+
+            if(rs.next()){
+                Cliente clienteBD = new Cliente();
+                clienteBD.setId(rs.getLong("ID"));
+                clienteBD.setNome(rs.getString("NOME"));
+                clienteBD.setCodigo(rs.getString("CODIGO"));
+                retorno = clienteBD;
+            }
+
+        } catch (SQLException e) {
+            throw new Exception("Não foi possível buscar o cliente na base de dados" + e);
+        }
+
+        Assert.assertEquals(cliente.getNome(),retorno.getNome());
+        Assert.assertEquals(cliente.getCodigo(),retorno.getCodigo());
+        Assert.assertEquals(cliente.getId(),retorno.getId());
+
 
 
     }
