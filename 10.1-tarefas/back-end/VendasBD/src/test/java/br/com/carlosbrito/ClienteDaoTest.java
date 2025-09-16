@@ -1,7 +1,10 @@
 package br.com.carlosbrito;
 
+import br.com.carlosbrito.domain.Cliente;
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -12,13 +15,13 @@ import java.sql.SQLException;
 public class ClienteDaoTest {
 
     @Test
-    public void deveCadastrarClienteTest(){
+    public void deveCadastrarClienteTest() throws Exception {
         String sql =  "INSERT INTO tb_cliente (nome, codigo) VALUES (?,?)";
         Integer count = 0;
 
         Cliente cliente01 = new Cliente();
-        cliente.setNome("Teste 01");
-        cliente.setCodigo("0001");
+        cliente01.setNome("Teste 01");
+        cliente01.setCodigo("0001");
 
         try(Connection connection = ConnectionFactory.getConnection;
             PreparedStatement st = connection.prepareStatement(sql)){
