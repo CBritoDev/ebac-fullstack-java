@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author carlos.brito
  * Criado em: 16/09/2025
  */
-public class ClienteDaoTest {
+public class ClienteBDTest {
 
     @Test
     public void deveCadastrarClienteTest() throws Exception {
@@ -23,7 +23,7 @@ public class ClienteDaoTest {
         cliente01.setNome("Teste 01");
         cliente01.setCodigo("0001");
 
-        try(Connection connection = ConnectionFactory.getConnection;
+        try(Connection connection = ConnectionFactory.getConnection();
             PreparedStatement st = connection.prepareStatement(sql)){
 
 
