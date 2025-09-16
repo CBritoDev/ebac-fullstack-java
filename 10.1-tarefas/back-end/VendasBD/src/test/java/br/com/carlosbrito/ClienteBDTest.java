@@ -1,5 +1,7 @@
 package br.com.carlosbrito;
 
+import br.com.carlosbrito.dao.ClienteDAO;
+import br.com.carlosbrito.dao.IClienteDAO;
 import br.com.carlosbrito.domain.Cliente;
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,6 +48,8 @@ public class ClienteBDTest {
     public void deveBuscarClienteBDTest() throws Exception {
         String sql =  "SELECT * FROM tb_cliente WHERE codigo = ?";
         ResultSet rs;
+        Integer count = 0;
+        IClienteDAO clienteDao =  new ClienteDAO();
         Cliente retorno = new Cliente();
         Cliente cliente =  new Cliente();
         cliente.setNome("Teste 02");
@@ -74,6 +78,7 @@ public class ClienteBDTest {
         Assert.assertEquals(cliente.getNome(),retorno.getNome());
         Assert.assertEquals(cliente.getCodigo(),retorno.getCodigo());
         Assert.assertEquals(cliente.getId(),retorno.getId());
+
 
 
 
