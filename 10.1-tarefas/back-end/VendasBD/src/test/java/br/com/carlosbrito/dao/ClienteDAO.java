@@ -25,7 +25,7 @@ public class ClienteDAO implements IClienteDAO {
             st.setString(1,cliente.getNome());
             st.setString(2,cliente.getCodigo());
 
-             st.executeUpdate();
+             return st.executeUpdate();
 
         }catch(Exception e){
             throw  new Exception("Não foi possível cadastrar cliente no banco de dados : " + e);

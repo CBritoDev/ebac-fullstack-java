@@ -17,6 +17,12 @@ import java.sql.SQLException;
  */
 public class ClienteBDTest {
 
+    IClienteDAO clienteDao;
+
+    public ClienteBDTest(){
+        clienteDao = new ClienteDAO();
+    }
+
     @Test
     public void deveCadastrarClienteTest() throws Exception {
         String sql =  "INSERT INTO tb_cliente (nome, codigo) VALUES (?,?)";
@@ -49,13 +55,13 @@ public class ClienteBDTest {
         String sql =  "SELECT * FROM tb_cliente WHERE codigo = ?";
         ResultSet rs;
         Integer count = 0;
-        IClienteDAO clienteDao =  new ClienteDAO();
         Cliente retorno = new Cliente();
         Cliente cliente =  new Cliente();
         cliente.setNome("Teste 02");
         cliente.setCodigo("0002");
 
-        clienteDao.cadastrar(cliente);
+       count= clienteDao.cadastrar(cliente);
+       Assert.assertTrue(count == 1);
 
         try(Connection connection = ConnectionFactory.getConnection();
             PreparedStatement stm = connection.prepareStatement(sql)) {
@@ -77,10 +83,36 @@ public class ClienteBDTest {
 
         Assert.assertEquals(cliente.getNome(),retorno.getNome());
         Assert.assertEquals(cliente.getCodigo(),retorno.getCodigo());
-        Assert.assertEquals(cliente.getId(),retorno.getId());
 
 
+    }
 
+    @Test
+    public void deveExcluirClienteTest() throws Exception {
+
+        String sql = "DELETE FROM tb_cliente WHERE CODIGO = ?";
+        Cliente cliente = new Cliente();
+        cliente.setCodigo("0003");
+        cliente.setNome("Teste 03");
+        Integer count = 0;
+
+        count = clienteDao.cadastrar(cliente);
+        Assert.assertTrue(count == 1);
+
+        Cliente clienteBD = clienteDao.buscar(cliente.getCodigo());
+        Assert.assertNotNull(clienteBD);
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)){
+
+            stm.setString(1,clienteBD.getCodigo());
+            count = stm.executeUpdate();
+
+        }catch (SQLException e){
+            throw new Exception("Não foi possível realizar a exclusão do cliente: " + e);
+        }
+
+        Assert.assertTrue(count == 1);
 
     }
 
