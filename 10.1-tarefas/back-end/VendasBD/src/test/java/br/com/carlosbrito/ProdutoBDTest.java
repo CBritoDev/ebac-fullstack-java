@@ -130,4 +130,59 @@ public class ProdutoBDTest {
 
     }
 
+    @Test
+    public void deveAtualizarProdutoBD() throws Exception {
+        String sql = "UPDATE tb_produto SET nome = ?, codigo = ? WHERE id = ?";
+        Integer count = 0;
+        IProdutoDAO produtoDAO =  new ProdutoDAO();
+
+        //Produto 01
+        Produto produto =  new Produto();
+        produto.setNome("Refrigerante");
+        produto.setCodigo("ABCD");
+        produto.setValor(BigDecimal.valueOf(9.90));
+
+        //Produto para atualização de dados
+        Produto produto2 =  new Produto();
+        produto2.setNome("Vinho");
+        produto2.setCodigo("EFGH");
+        produto2.setValor(BigDecimal.valueOf(74.90));
+
+        count = produtoDAO.cadastrar(produto);
+        Assert.assertTrue(count == 1);
+
+        Produto produtoBD = produtoDAO.buscar(produto.getCodigo());
+        Assert.assertNotNull(produtoBD);
+
+        Assert.assertEquals(produto.getNome(),produtoBD.getNome());
+        Assert.assertEquals(produto.getCodigo(),produtoBD.getCodigo());
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm =  connection.prepareStatement(sql)){
+
+            stm.setString(1,produto2.getNome());
+            stm.setString(2,produto2.getCodigo());
+            stm.setLong(3,produtoBD.getId());
+
+            count = stm.executeUpdate();
+
+        }catch(SQLException e){
+            throw new Exception("Não foi possível atualizar os dados do produto: " + e);
+        }
+
+        Assert.assertTrue(count == 1);
+
+        Produto produtoUpdate = produtoDAO.buscar(produto2.getCodigo());
+        Assert.assertNotNull(produtoUpdate);
+
+        Assert.assertEquals(produtoBD.getId(),produtoUpdate.getId());
+        Assert.assertEquals(produto2.getNome(),produtoUpdate.getNome());
+        Assert.assertEquals(produto2.getCodigo(),produtoUpdate.getCodigo());
+        Assert.assertEquals(produto2.getValor(), produtoUpdate.getValor().stripTrailingZeros());
+
+
+        count  = produtoDAO.excluir(produtoUpdate.getCodigo());
+        Assert.assertTrue(count == 1);
+    }
+
 }
