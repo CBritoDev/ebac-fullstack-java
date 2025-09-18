@@ -8,4 +8,6 @@ import br.com.carlosbrito.domain.Cliente;
  */
 public interface IClienteDAO {
     Integer cadastrar(Cliente cliente) throws Exception;
+
+    Cliente buscar(String codigo) throws Exception;
 }

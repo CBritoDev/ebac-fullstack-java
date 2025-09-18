@@ -5,6 +5,7 @@ import br.com.carlosbrito.domain.Cliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -31,5 +32,33 @@ public class ClienteDAO implements IClienteDAO {
             throw  new Exception("Não foi possível cadastrar cliente no banco de dados : " + e);
         }
 
+    }
+
+    @Override
+    public Cliente buscar(String codigo) throws Exception {
+
+        String sql =  "SELECT * FROM tb_cliente WHERE codigo = ?";
+        ResultSet rs;
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)) {
+
+            stm.setString(1,codigo);
+            rs = stm.executeQuery();
+
+            if(rs.next()){
+                Cliente clienteBD = new Cliente();
+                clienteBD.setId(rs.getLong("ID"));
+                clienteBD.setNome(rs.getString("NOME"));
+                clienteBD.setCodigo(rs.getString("CODIGO"));
+                return clienteBD;
+            }
+
+        } catch (SQLException e) {
+            throw new Exception("Não foi possível buscar o cliente na base de dados" + e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
