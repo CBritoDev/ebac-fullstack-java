@@ -15,6 +15,14 @@ import java.util.List;
  * Criado em: 18/09/2025
  */
 public class ProdutoDAO implements IProdutoDAO {
+
+    /**
+     * Cadastra produto no Banco de Dados
+     *
+     * @param produto Objeto produto com dados a serem cadastrados
+     * @return Retorna 1 em caso de sucesso, 0 em caso de falha no cadastro
+     * @throws Exception Em caso de erro ao comunicar com o Banco de dados
+     */
     @Override
     public Integer cadastrar(Produto produto) throws Exception {
         String sql = "INSERT INTO tb_produto (NOME,CODIGO,VALOR) VALUES (?,?,?)";
@@ -33,6 +41,14 @@ public class ProdutoDAO implements IProdutoDAO {
         }
     }
 
+
+    /**
+     * Realiza a busca de produto no Banco de Dados
+     *
+     * @param codigo Valor para a busca de produto no bd
+     * @return Retorna o produto com codigo correspondente
+     * @throws Exception Em caso de erro ao comunicar com o Banco de dados
+     */
     @Override
     public Produto buscar(String codigo) throws Exception {
         String sql =  "SELECT * FROM tb_produto WHERE CODIGO = ?";
@@ -60,6 +76,15 @@ public class ProdutoDAO implements IProdutoDAO {
         return null;
     }
 
+
+
+    /**
+     * Exclui produto do Banco de dados
+     *
+     * @param codigo Valor para a busca e exclusao de produto no bd
+     * @return Retorna 1 em sucesso na exclusão, 0 para falha
+     * @throws Exception Em caso de erro ao comunicar com o Banco de dados
+     */
     @Override
     public Integer excluir(String codigo) throws Exception {
         String sql = "DELETE FROM tb_produto WHERE CODIGO = ?" ;
@@ -76,6 +101,13 @@ public class ProdutoDAO implements IProdutoDAO {
         }
     }
 
+
+    /**
+     * Busca todos os produtos do Banco de Dados
+     *
+     * @return Retorna lista com produtos encontrados
+     * @throws Exception Em caso de erro ao comunicar com o Banco de dados
+     */
     @Override
     public List<Produto> buscarTodos() throws Exception {
         String sql =  "SELECT * FROM tb_produto";

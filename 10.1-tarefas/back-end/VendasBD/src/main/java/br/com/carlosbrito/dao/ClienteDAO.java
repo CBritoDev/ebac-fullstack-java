@@ -86,7 +86,7 @@ public class ClienteDAO implements IClienteDAO {
     /**
      * Exclui cliente do Banco de dados
      *
-     * @param codigo Valor para a busca de cliente no bd
+     * @param codigo Valor para a busca e exclusao de cliente no bd
      * @return Retorna 1 em sucesso na exclusão, 0 para falha
      * @throws Exception Em caso de erro ao comunicar com o Banco de dados
      */
