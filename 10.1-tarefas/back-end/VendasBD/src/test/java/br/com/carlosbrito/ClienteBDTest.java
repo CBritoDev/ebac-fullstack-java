@@ -212,7 +212,7 @@ public class ClienteBDTest {
 
             rs = stm.executeQuery();
 
-            if(rs.next()){
+            while(rs.next()){
                 Cliente clienteBD = new Cliente();
                 clienteBD.setNome(rs.getString("NOME"));
                 clienteBD.setCodigo(rs.getString("CODIGO"));
@@ -224,7 +224,11 @@ public class ClienteBDTest {
             throw new Exception("Não foi possível realizar a busca pelos clientes: " + e);
         }
 
-        Assert.assertTrue(listaClientes.containsAll(listaComparacao));
+        Assert.assertNotNull(listaClientes);
+        Assert.assertEquals(cliente.getNome(),listaClientes.get(0).getNome());
+        Assert.assertEquals(cliente.getCodigo(),listaClientes.get(0).getCodigo());
+        Assert.assertEquals(cliente2.getNome(),listaClientes.get(1).getNome());
+        Assert.assertEquals(cliente2.getCodigo(),listaClientes.get(1).getCodigo());
 
         count = 0;
         for(Cliente one : listaClientes){
