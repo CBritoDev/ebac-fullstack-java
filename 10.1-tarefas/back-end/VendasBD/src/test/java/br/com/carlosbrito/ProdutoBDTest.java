@@ -13,6 +13,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author carlos.brito
@@ -185,6 +188,74 @@ public class ProdutoBDTest {
 
         count  = produtoDAO.excluir(produtoUpdate.getCodigo());
         Assert.assertTrue(count == 1);
+    }
+
+    @Test
+    public void deveRetornarTodosProdutosBD() throws Exception {
+        String sql = "SELECT * FROM tb_produto";
+        Integer count = 0;
+        ResultSet rs;
+        IProdutoDAO produtoDAO =  new ProdutoDAO();
+        List<Produto> retornoBD = new ArrayList<>();
+        List<Produto> produtos = new ArrayList<>();
+
+        //Produto 01
+        Produto produto =  new Produto();
+        produto.setNome("Refrigerante");
+        produto.setCodigo("ABCD");
+        produto.setValor(BigDecimal.valueOf(9.90));
+
+        //Produto 02
+        Produto produto2 =  new Produto();
+        produto2.setNome("Vinho");
+        produto2.setCodigo("EFGH");
+        produto2.setValor(BigDecimal.valueOf(74.90));
+
+        produtos =  Arrays.asList(produto, produto2);
+
+        count = produtoDAO.cadastrar(produto);
+        Assert.assertTrue(count == 1);
+
+        count = produtoDAO.cadastrar(produto2);
+        Assert.assertTrue(count == 1);
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm =  connection.prepareStatement(sql)){
+
+            rs = stm.executeQuery();
+
+            while(rs.next()){
+                Produto produtoBD = new Produto();
+                produtoBD.setId(rs.getLong("ID"));
+                produtoBD.setNome(rs.getString("NOME"));
+                produtoBD.setCodigo(rs.getString("CODIGO"));
+                produtoBD.setValor(rs.getBigDecimal("VALOR"));
+                retornoBD.add(produtoBD);
+            }
+
+        }catch(SQLException e){
+            throw new Exception("Não foi possível realizar a busca pelos produtos: " + e);
+        }
+
+        Assert.assertNotNull(retornoBD);
+
+        Assert.assertEquals(produto.getNome(),retornoBD.get(0).getNome());
+        Assert.assertEquals(produto.getCodigo(),retornoBD.get(0).getCodigo());
+        Assert.assertEquals(produto.getValor(),retornoBD.get(0).getValor().stripTrailingZeros());
+        Assert.assertEquals(produto2.getNome(),retornoBD.get(1).getNome());
+        Assert.assertEquals(produto2.getCodigo(),retornoBD.get(1).getCodigo());
+        Assert.assertEquals(produto2.getValor(),retornoBD.get(1).getValor().stripTrailingZeros());
+
+        count = 0;
+        for(Produto one : retornoBD){
+            produtoDAO.excluir(one.getCodigo());
+            count++;
+        }
+
+        Assert.assertTrue(count == produtos.size());
+
+
+
     }
 
 }
