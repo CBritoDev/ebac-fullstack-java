@@ -1,6 +1,8 @@
 package br.com.carlosbrito;
 
 import br.com.carlosbrito.dao.ConnectionFactory;
+import br.com.carlosbrito.dao.IProdutoDAO;
+import br.com.carlosbrito.dao.ProdutoDAO;
 import br.com.carlosbrito.domain.Produto;
 import org.junit.Assert;
 import org.junit.Test;
@@ -56,7 +58,8 @@ public class ProdutoBDTest {
         produto.setCodigo("ABCD");
         produto.setValor(BigDecimal.valueOf(9.90));
 
-        produtoDAO.cadastrar(produto);
+        count  = produtoDAO.cadastrar(produto);
+        Assert.assertTrue(count == 1);
 
         try(Connection connection = ConnectionFactory.getConnection();
         PreparedStatement stm =  connection.prepareStatement(sql)){
@@ -78,7 +81,7 @@ public class ProdutoBDTest {
 
         Assert.assertEquals(produto.getNome(), produtoRetorno.getNome());
         Assert.assertEquals(produto.getCodigo(), produtoRetorno.getCodigo());
-        Assert.assertEquals(produto.getValor(), produtoRetorno.getValor());
+        Assert.assertEquals(produto.getValor(), produtoRetorno.getValor().stripTrailingZeros());
 
     }
 
