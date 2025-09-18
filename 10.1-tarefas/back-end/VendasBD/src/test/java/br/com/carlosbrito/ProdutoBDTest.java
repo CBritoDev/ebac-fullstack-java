@@ -104,6 +104,11 @@ public class ProdutoBDTest {
         Produto produtoBD = produtoDAO.buscar(produto.getCodigo());
         Assert.assertNotNull(produtoBD);
 
+        Assert.assertEquals(produto.getNome(),produtoBD.getNome());
+        Assert.assertEquals(produto.getCodigo(),produtoBD.getCodigo());
+        Assert.assertEquals(produto.getValor(),produtoBD.getValor().stripTrailingZeros());
+
+
         try(Connection connection = ConnectionFactory.getConnection();
             PreparedStatement stm = connection.prepareStatement(sql)){
 
