@@ -132,7 +132,7 @@ public class ProdutoBDTest {
 
     @Test
     public void deveAtualizarProdutoBD() throws Exception {
-        String sql = "UPDATE tb_produto SET nome = ?, codigo = ? WHERE id = ?";
+        String sql = "UPDATE tb_produto SET nome = ?, codigo = ?, valor = ? WHERE id = ?";
         Integer count = 0;
         IProdutoDAO produtoDAO =  new ProdutoDAO();
 
@@ -156,13 +156,15 @@ public class ProdutoBDTest {
 
         Assert.assertEquals(produto.getNome(),produtoBD.getNome());
         Assert.assertEquals(produto.getCodigo(),produtoBD.getCodigo());
+        Assert.assertEquals(produto.getValor(),produtoBD.getValor().stripTrailingZeros());
 
         try(Connection connection = ConnectionFactory.getConnection();
             PreparedStatement stm =  connection.prepareStatement(sql)){
 
             stm.setString(1,produto2.getNome());
             stm.setString(2,produto2.getCodigo());
-            stm.setLong(3,produtoBD.getId());
+            stm.setBigDecimal(3, produto2.getValor());
+            stm.setLong(4,produtoBD.getId());
 
             count = stm.executeUpdate();
 
