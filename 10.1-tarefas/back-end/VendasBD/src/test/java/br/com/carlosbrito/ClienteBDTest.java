@@ -3,6 +3,7 @@ package br.com.carlosbrito;
 import br.com.carlosbrito.dao.ClienteDAO;
 import br.com.carlosbrito.dao.IClienteDAO;
 import br.com.carlosbrito.domain.Cliente;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author carlos.brito
@@ -176,6 +180,59 @@ public class ClienteBDTest {
         Assert.assertTrue(count == 1);
 
 
+    }
+
+    @Test
+    public void deveRetornarListaClientes() throws Exception {
+        String sql = "SELECT * FROM tb_cliente";
+        Integer count = 0;
+        ResultSet rs;
+        List<Cliente> listaClientes =  new ArrayList<>();
+        List<Cliente> listaComparacao =  new ArrayList<>();
+
+        //Cliente 01
+        Cliente cliente = new Cliente();
+        cliente.setCodigo("0005");
+        cliente.setNome("Teste 05");
+
+        //Cliente02
+        Cliente cliente2 = new Cliente();
+        cliente2.setCodigo("00015");
+        cliente2.setNome("Teste 15");
+
+        listaComparacao = Arrays.asList(cliente,cliente2);
+
+        count = clienteDao.cadastrar(cliente);
+        Assert.assertTrue(count ==  1);
+        count = clienteDao.cadastrar(cliente2);
+        Assert.assertTrue(count ==  1);
+
+        try(Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement stm =  connection.prepareStatement(sql)){
+
+            rs = stm.executeQuery();
+
+            if(rs.next()){
+                Cliente clienteBD = new Cliente();
+                clienteBD.setNome(rs.getString("NOME"));
+                clienteBD.setCodigo(rs.getString("CODIGO"));
+                clienteBD.setId(rs.getLong("ID"));
+                listaClientes.add(clienteBD);
+            }
+
+        }catch(SQLException e){
+            throw new Exception("Não foi possível realizar a busca pelos clientes: " + e);
+        }
+
+        Assert.assertTrue(listaClientes.containsAll(listaComparacao));
+
+        count = 0;
+        for(Cliente one : listaClientes){
+            clienteDao.excluir(one.getCodigo());
+            count++;
+        }
+
+        Assert.assertTrue(count == listaComparacao.size());
     }
 
 
