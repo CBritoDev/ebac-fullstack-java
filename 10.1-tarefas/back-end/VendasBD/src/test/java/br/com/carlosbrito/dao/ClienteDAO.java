@@ -61,4 +61,19 @@ public class ClienteDAO implements IClienteDAO {
         }
         return null;
     }
+
+    @Override
+    public Integer excluir(String codigo) throws Exception {
+        String sql =  "DELETE FROM tb_cliente WHERE CODIGO = ?";
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)){
+
+            stm.setString(1,codigo);
+            return stm.executeUpdate();
+
+        }catch (SQLException e){
+            throw new Exception("Não foi possível realizar a exclusão do cliente: " + e);
+        }
+    }
 }

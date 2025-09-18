@@ -10,4 +10,6 @@ public interface IClienteDAO {
     Integer cadastrar(Cliente cliente) throws Exception;
 
     Cliente buscar(String codigo) throws Exception;
+
+    Integer excluir(String codigo) throws Exception;
 }

@@ -47,7 +47,14 @@ public class ClienteBDTest {
 
         Assert.assertTrue(count == 1);
 
+        Cliente clienteBD =  clienteDao.buscar(cliente01.getCodigo());
+        Assert.assertNotNull(clienteBD);
 
+        Assert.assertEquals(cliente01.getNome(),clienteBD.getNome());
+        Assert.assertEquals(cliente01.getCodigo(),clienteBD.getCodigo());
+
+        count = clienteDao.excluir(clienteBD.getCodigo());
+        Assert.assertTrue(count == 1);
     }
 
     @Test
@@ -84,7 +91,8 @@ public class ClienteBDTest {
         Assert.assertEquals(cliente.getNome(),retorno.getNome());
         Assert.assertEquals(cliente.getCodigo(),retorno.getCodigo());
 
-
+        count =  clienteDao.excluir(retorno.getCodigo());
+        Assert.assertTrue(count == 1);
 
     }
 
