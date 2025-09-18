@@ -47,6 +47,13 @@ public class ClienteDAO implements IClienteDAO {
 
     }
 
+    /**
+     * Realiza a busca de cliente no Banco de Dados
+     *
+     * @param codigo Valor para a busca de cliente no bd
+     * @return Retorna o cliente com codigo correspondente
+     * @throws Exception Em caso de erro ao comunicar com o Banco de dados
+     */
     @Override
     public Cliente buscar(String codigo) throws Exception {
 
@@ -76,6 +83,13 @@ public class ClienteDAO implements IClienteDAO {
         return null;
     }
 
+    /**
+     * Exclui cliente do Banco de dados
+     *
+     * @param codigo Valor para a busca de cliente no bd
+     * @return Retorna 1 em sucesso na exclusão, 0 para falha
+     * @throws Exception Em caso de erro ao comunicar com o Banco de dados
+     */
     @Override
     public Integer excluir(String codigo) throws Exception {
         String sql =  "DELETE FROM tb_cliente WHERE CODIGO = ?";
@@ -91,6 +105,13 @@ public class ClienteDAO implements IClienteDAO {
         }
     }
 
+
+    /**
+     * Busca todos os clientes do Banco de Dados
+     *
+     * @return Retorna lista com clientes encontrados
+     * @throws Exception Em caso de erro ao comunicar com o Banco de dados
+     */
     @Override
     public List<Cliente> buscarTodos() throws Exception {
         String sql =  "SELECT * FROM tb_cliente";
