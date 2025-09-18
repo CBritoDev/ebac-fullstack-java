@@ -1,9 +1,9 @@
 package br.com.carlosbrito;
 
 import br.com.carlosbrito.dao.ClienteDAO;
+import br.com.carlosbrito.dao.ConnectionFactory;
 import br.com.carlosbrito.dao.IClienteDAO;
 import br.com.carlosbrito.domain.Cliente;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -238,7 +238,5 @@ public class ClienteBDTest {
 
         Assert.assertTrue(count == listaComparacao.size());
     }
-
-
 
 }
