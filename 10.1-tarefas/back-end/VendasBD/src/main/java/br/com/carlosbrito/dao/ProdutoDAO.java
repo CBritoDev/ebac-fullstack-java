@@ -1,11 +1,14 @@
 package br.com.carlosbrito.dao;
 
+import br.com.carlosbrito.domain.Cliente;
 import br.com.carlosbrito.domain.Produto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author carlos.brito
@@ -70,6 +73,33 @@ public class ProdutoDAO implements IProdutoDAO {
 
         }catch (SQLException e){
             throw new Exception("Não foi possível realizar a exclusão do cliente: " + e);
+        }
+    }
+
+    @Override
+    public List<Produto> buscarTodos() throws Exception {
+        String sql =  "SELECT * FROM tb_produto";
+        ResultSet rs;
+        List<Produto> listaProdutos =  new ArrayList<>();
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm =  connection.prepareStatement(sql)){
+
+            rs = stm.executeQuery();
+
+            while(rs.next()){
+                Produto produtoBD = new Produto();
+                produtoBD.setId(rs.getLong("ID"));
+                produtoBD.setNome(rs.getString("NOME"));
+                produtoBD.setCodigo(rs.getString("CODIGO"));
+                produtoBD.setValor(rs.getBigDecimal("VALOR"));
+                listaProdutos.add(produtoBD);
+            }
+
+            return listaProdutos;
+
+        }catch(SQLException e){
+            throw new Exception("Não foi possível realizar a busca pelos produtos: " + e);
         }
     }
 }
