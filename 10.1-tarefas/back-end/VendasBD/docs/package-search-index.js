@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"br.com.carlosbrito"},{"l":"br.com.carlosbrito.dao"},{"l":"br.com.carlosbrito.domain"}];updateSearchResults();
