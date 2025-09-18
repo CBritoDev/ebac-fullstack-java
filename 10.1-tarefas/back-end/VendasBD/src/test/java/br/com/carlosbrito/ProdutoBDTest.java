@@ -3,6 +3,7 @@ package br.com.carlosbrito;
 import br.com.carlosbrito.dao.ConnectionFactory;
 import br.com.carlosbrito.dao.IProdutoDAO;
 import br.com.carlosbrito.dao.ProdutoDAO;
+import br.com.carlosbrito.domain.Cliente;
 import br.com.carlosbrito.domain.Produto;
 import org.junit.Assert;
 import org.junit.Test;
@@ -82,6 +83,38 @@ public class ProdutoBDTest {
         Assert.assertEquals(produto.getNome(), produtoRetorno.getNome());
         Assert.assertEquals(produto.getCodigo(), produtoRetorno.getCodigo());
         Assert.assertEquals(produto.getValor(), produtoRetorno.getValor().stripTrailingZeros());
+
+    }
+
+    @Test
+    public void deveExcluirProdutoBD() throws Exception {
+        String sql = "DELETE FROM tb_produto WHERE CODIGO = ?";
+        Integer count = 0;
+
+        IProdutoDAO produtoDAO = new ProdutoDAO();
+        Produto produto =  new Produto();
+        produto.setNome("Refrigerante");
+        produto.setCodigo("ABCD");
+        produto.setValor(BigDecimal.valueOf(9.90));
+
+
+        count = produtoDAO.cadastrar(produto);
+        Assert.assertTrue(count == 1);
+
+        Produto produtoBD = produtoDAO.buscar(produto.getCodigo());
+        Assert.assertNotNull(produtoBD);
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)){
+
+            stm.setString(1,produtoBD.getCodigo());
+            count = stm.executeUpdate();
+
+        }catch (SQLException e){
+            throw new Exception("Não foi possível realizar a exclusão do cliente: " + e);
+        }
+
+        Assert.assertTrue(count == 1);
 
     }
 
