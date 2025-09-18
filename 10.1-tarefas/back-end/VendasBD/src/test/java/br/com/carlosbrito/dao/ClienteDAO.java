@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author carlos.brito
@@ -76,4 +78,32 @@ public class ClienteDAO implements IClienteDAO {
             throw new Exception("Não foi possível realizar a exclusão do cliente: " + e);
         }
     }
+
+    @Override
+    public List<Cliente> buscarTodos() throws Exception {
+        String sql =  "SELECT * FROM tb_cliente";
+        ResultSet rs;
+        List<Cliente> listaClientes = new ArrayList<>();
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm =  connection.prepareStatement(sql)){
+
+            rs = stm.executeQuery();
+
+            while(rs.next()){
+                Cliente clienteBD = new Cliente();
+                clienteBD.setNome(rs.getString("NOME"));
+                clienteBD.setCodigo(rs.getString("CODIGO"));
+                clienteBD.setId(rs.getLong("ID"));
+                listaClientes.add(clienteBD);
+            }
+
+            return listaClientes;
+
+        }catch(SQLException e){
+            throw new Exception("Não foi possível realizar a busca pelos clientes: " + e);
+        }
+
+    }
+
 }
