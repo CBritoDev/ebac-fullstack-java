@@ -137,8 +137,8 @@ public class ClienteBDTest {
 
         //Cliente02 para atualização de dados
         Cliente cliente2 = new Cliente();
-        cliente.setCodigo("0004");
-        cliente.setNome("Teste 04");
+        cliente2.setCodigo("0004");
+        cliente2.setNome("Teste 04");
 
 
         count = clienteDao.cadastrar(cliente);
@@ -147,12 +147,15 @@ public class ClienteBDTest {
         Cliente clienteBD = clienteDao.buscar(cliente.getCodigo());
         Assert.assertNotNull(clienteBD);
 
+        Assert.assertEquals(cliente.getNome(),clienteBD.getNome());
+        Assert.assertEquals(cliente.getCodigo(),clienteBD.getCodigo());
+
         try(Connection connection = ConnectionFactory.getConnection();
         PreparedStatement stm =  connection.prepareStatement(sql)){
 
             stm.setString(1,cliente2.getNome());
-            stm.setString(2,cliente.getCodigo());
-            stm.setLong(3,cliente2.getId());
+            stm.setString(2,cliente2.getCodigo());
+            stm.setLong(3,clienteBD.getId());
 
             count = stm.executeUpdate();
 
@@ -164,6 +167,10 @@ public class ClienteBDTest {
 
         Cliente clienteUpdate = clienteDao.buscar(cliente2.getCodigo());
         Assert.assertNotNull(clienteUpdate);
+
+        Assert.assertEquals(cliente2.getNome(),clienteUpdate.getNome());
+        Assert.assertEquals(cliente2.getCodigo(),clienteUpdate.getCodigo());
+        Assert.assertEquals(clienteBD.getId(),clienteUpdate.getId());
 
         count  = clienteDao.excluir(clienteUpdate.getCodigo());
         Assert.assertTrue(count == 1);
