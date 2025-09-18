@@ -85,6 +85,7 @@ public class ClienteBDTest {
         Assert.assertEquals(cliente.getCodigo(),retorno.getCodigo());
 
 
+
     }
 
     @Test
@@ -115,6 +116,53 @@ public class ClienteBDTest {
         Assert.assertTrue(count == 1);
 
     }
+
+    @Test
+    public void deveAtualizarClienteBDTest() throws Exception {
+        String sql = "UPDATE tb_cliente SET nome = ?, codigo = ? WHERE id = ?";
+        Integer count = 0;
+
+        //Cliente 01
+        Cliente cliente = new Cliente();
+        cliente.setCodigo("0003");
+        cliente.setNome("Teste 03");
+
+        //Cliente02 para atualização de dados
+        Cliente cliente2 = new Cliente();
+        cliente.setCodigo("0004");
+        cliente.setNome("Teste 04");
+
+
+        count = clienteDao.cadastrar(cliente);
+        Assert.assertTrue(count == 1);
+
+        Cliente clienteBD = clienteDao.buscar(cliente.getCodigo());
+        Assert.assertNotNull(clienteBD);
+
+        try(Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement stm =  connection.prepareStatement(sql)){
+
+            stm.setString(1,cliente2.getNome());
+            stm.setString(2,cliente.getCodigo());
+            stm.setLong(3,cliente2.getId());
+
+            count = stm.executeUpdate();
+
+        }catch(SQLException e){
+            throw new Exception("Não foi possível atualizar os dados do cliente: " + e);
+        }
+
+        Assert.assertTrue(count == 1);
+
+        Cliente clienteUpdate = clienteDao.buscar(cliente2.getCodigo());
+        Assert.assertNotNull(clienteUpdate);
+
+        count  = clienteDao.excluir(clienteUpdate.getCodigo());
+        Assert.assertTrue(count == 1);
+
+
+    }
+
 
 
 }
