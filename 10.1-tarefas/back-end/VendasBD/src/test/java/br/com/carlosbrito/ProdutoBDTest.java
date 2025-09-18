@@ -24,6 +24,7 @@ public class ProdutoBDTest {
     public void deveCadastrarProdutoBD() throws Exception {
         String sql = "INSERT INTO tb_produto (NOME,CODIGO,VALOR) VALUES (?,?,?)";
         Integer count = 0;
+        IProdutoDAO produtoDao =  new ProdutoDAO();
 
         Produto produto =  new Produto();
         produto.setNome("Refrigerante");
@@ -44,6 +45,10 @@ public class ProdutoBDTest {
         }
 
         Assert.assertTrue(count == 1);
+
+        count = produtoDao.excluir(produto.getCodigo());
+        Assert.assertTrue(count == 1);
+
     }
 
     @Test
@@ -84,6 +89,8 @@ public class ProdutoBDTest {
         Assert.assertEquals(produto.getCodigo(), produtoRetorno.getCodigo());
         Assert.assertEquals(produto.getValor(), produtoRetorno.getValor().stripTrailingZeros());
 
+        count = produtoDAO.excluir(produto.getCodigo());
+        Assert.assertTrue(count == 1);
     }
 
     @Test

@@ -10,4 +10,6 @@ public interface IProdutoDAO {
     Integer cadastrar(Produto produto) throws Exception;
 
     Produto buscar(String codigo) throws Exception;
+
+    Integer excluir(String codigo) throws Exception;
 }

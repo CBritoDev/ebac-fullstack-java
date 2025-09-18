@@ -5,6 +5,7 @@ import br.com.carlosbrito.domain.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author carlos.brito
@@ -54,5 +55,21 @@ public class ProdutoDAO implements IProdutoDAO {
             throw new Exception("Não foi possível buscar o produto: " + e);
         }
         return null;
+    }
+
+    @Override
+    public Integer excluir(String codigo) throws Exception {
+        String sql = "DELETE FROM tb_produto WHERE CODIGO = ?" ;
+
+        try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)){
+
+            stm.setString(1,codigo);
+
+            return stm.executeUpdate();
+
+        }catch (SQLException e){
+            throw new Exception("Não foi possível realizar a exclusão do cliente: " + e);
+        }
     }
 }
